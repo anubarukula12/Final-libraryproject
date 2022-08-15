@@ -1,0 +1,204 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-size: cover;
+  font-family: sans-serif;
+}
+.theme-background {
+  background: rgb(51, 112, 255);
+}
+.menu-bar {
+  background: rgb(51, 112, 255);
+  text-align: center;
+}
+.menu-bar ul {
+  display: flex;
+  justify-content: end;
+  list-style: none;
+  color: #fff;
+}
+.menu-bar ul li {
+  /* width: 120px; */
+  margin: 15px;
+  padding: 15px;
+}
+.menu-bar ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+.active,
+.menu-bar ul li:hover {
+  border-radius: 3px;
+}
+.menu-bar .fa {
+  margin-right: 8px;
+}
+.sub-menu-1 {
+  display: none;
+}
+.menu-bar ul li:hover .sub-menu-1 {
+  display: block;
+  position: absolute;
+  background-color: rgb(51, 112, 255);
+  margin-top: 15px;
+  margin-left: -15px;
+}
+.menu-bar ul li:hover .sub-menu-1 ul {
+  /* display: block; */
+  margin: 10px;
+}
+.menu-bar ul li:hover .sub-menu-1 li {
+  /* width: 150px; */
+  padding: 10px;
+  border-bottom: 1px dotted #fff;
+  background: transparent;
+  border-radius: 0;
+  text-align: left;
+}
+.menu-bar ul li:hover .sub-menu-1 li:last-child {
+  border-bottom: none;
+}
+.menu-bar ul li:hover .sub-menu-1 li a:hover {
+  color: #00aaff;
+}
+#logo {
+  width: 55px;
+  margin-right: 80rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  height: 55px;
+}
+
+/*responsive*/
+@media (max-width: 767px) {
+  .footer-col {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 574px) {
+  .footer-col {
+    width: 100%;
+  }
+}
+.flex-container {
+  /* We first create a flex layout context */
+  display: flex;
+
+  /* Then we define the flow direction 
+	   and if we allow the items to wrap 
+	 * Remember this is the same as:
+	 * flex-direction: row;
+	 * flex-wrap: wrap;
+	 */
+  flex-flow: row wrap;
+
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-evenly;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.flex-item {
+  background: rgb(51, 171, 255);
+  padding: 5px;
+  width: 200px;
+  height: 150px;
+  margin-top: 10px;
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+  border-radius: 75%;
+}
+
+li a,
+.dropbtn {
+  display: inline-block;
+  color: rgb(71, 157, 255);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover,
+.dropdown:hover .dropbtn {
+  background-color: rgb(71, 157, 255);
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: rgb(138, 148, 159);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+#register-form {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  background-color: #4285f4;
+}
+#image-books {
+  background-image: url("../images/library-488690_1920.jpg");
+
+  min-height: 380px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+#register-submit {
+  font-size: 1.5rem;
+}
+#login-form {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  background-color: #4285f4;
+}
+#login-submit {
+  font-size: 1.5rem;
+}
+#book-submit {
+  font-size: 1.5rem;
+}
+#book-form {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  background-color: #4285f4;
+}
+#issue-form {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  background-color: #4285f4;
+}
+#myTable {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  background-color: #4285f4;
+}
