@@ -50,7 +50,11 @@ registerForm.addEventListener("submit", async (e) => {
     }
     if (registerInUser.success) {
       successAlert.classList.add("visually-hidden");
-      window.location.href = "login.html";
+      if (email === "admin.gmail.com") {
+        window.location.href = "adminlogin.html";
+      } else {
+        window.location.href = "studentlogin.html";
+      }
     } else {
       successAlert.innerHTML = registerInUser.message;
       successAlert.classList.remove("visually-hidden");

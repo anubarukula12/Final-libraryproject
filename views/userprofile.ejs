@@ -91,38 +91,17 @@
     <div id="header"></div>
     <main class='d-flex flex-column align-items-center' id="image-books">
 
-        <table class="table mt-4 table-fluid" id="myTable">
-            <thead>
-                <tr>
-                    <th scope="col">BookID</th>
-                    <th scope="col">BookName</th>
-                    <th scope="col">UserEmail</th>
-                    <th scope="col">Period(Days)</th>
-                    <th scope="col">IssueDate</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%issueList.forEach(issue=> {%>
-                    <tr>
-                        <th scope="row">
-                            <%= issue.bookid %>
-                        </th>
-                        <th scope="row">
-                            <%= issue.bookname %>
-                        </th>
-                        <td>
-                            <%= issue.useremail %>
-                        </td>
-                        <td>
-                            <%= issue.period %>
-                        </td>
-                        <td>
-                            <%= issue.date%>
-                        </td>
-                    </tr>
-                    <%})%>
-            </tbody>
-        </table>
+        <%userList.forEach(user=> {%>
+            <label>Name</label>
+            <input type="text" value="<%= user.firstname %>
+                                <%= user.lastname %>" />
+
+            <input type="text" value="<%= user.email %>" />
+
+            <input type="text" value="<%= user.mobileno %>" />
+
+            <%})%>
+
     </main>
     <script>
         $(document).ready(function () {

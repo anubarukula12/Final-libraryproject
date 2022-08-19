@@ -16,7 +16,7 @@
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
 
-    <script src="/jsfiles/loginScript.js" defer></script>
+    <script src="/jsfiles/returnbookScript.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -79,24 +79,34 @@
     <div id="header"></div>
     <main class='d-flex flex-column align-items-center' id="image-books">
 
-        <form id='login-form' class="col-8 col-lg-4 mt-4 ">
+        <form id='return-form' class="col-8 col-lg-4 mt-4 ">
             <center>
                 <h1>Return Book</h1>
             </center>
             <div id='failure-alert' class="alert alert-danger visually-hidden" role="alert">
                 Error while logging in
             </div>
+            <div id='success-alert' class="alert alert-success visually-hidden" role="alert">
+                You have been successfully registered. Go to
+                <a class="link" href="login.html">Login</a>
+            </div>
             <div class="row mb-3 mt-3">
-                <label class="form-label">Issue ID(IID)
-                    <input type="text" class="form-control" name='iid'>
+                <label class="form-label">useremail
+                    <input type="text" class="form-control" name='useremail'>
                 </label>
             </div>
+            <div class="row mb-3 mt-3">
+                <label class="form-label">BookId
+                    <input type="text" class="form-control" name='bookid'>
+                </label>
+            </div>
+           
             <div class="row mb-3">
                 <label for="startDate">Date
-                    <input id="startDate" class="form-control" type="date" />
+                    <input id="startDate" class="form-control" type="date" name="date" />
                 </label>
             </div>
-            <button type="submit" class="btn bg-gray form-control" id='book-submit'>Return Book</button>
+            <button type="submit" class="btn bg-gray form-control" id=' book-submit'>Return Book</button>
         </form>
         </br>
     </main>

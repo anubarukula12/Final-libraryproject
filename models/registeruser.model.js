@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 // create schema definition
 const registeruserSchemaDefinition = {
+
   firstname: {
     type: String,
   },

@@ -48,8 +48,12 @@ loginForm.addEventListener("submit", async (e) => {
     }
     if (loggedInUser.success) {
       failureAlert.classList.add("visually-hidden");
+      console.log("token", token);
+      const tokenvalue = token.split(",");
+      console.log("token", tokenvalue[1]);
       localStorage.setItem("x-auth-token", token);
-      window.location.href = "user.html";
+      localStorage.setItem("useremail", tokenvalue[1]);
+      window.location.href = "/userbooks";
     } else {
       failureAlert.innerHTML = loggedInUser.message;
       failureAlert.classList.remove("visually-hidden");

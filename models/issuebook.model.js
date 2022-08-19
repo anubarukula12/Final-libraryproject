@@ -5,6 +5,15 @@ const issuebookSchemaDefinition = {
   bookid: {
     type: String,
   },
+  bookname: {
+    type: String,
+  },
+  genre: {
+    type: String,
+  },
+  price: {
+    type: Number,
+  },
   useremail: {
     type: String,
   },

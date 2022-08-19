@@ -48,7 +48,7 @@ loginForm.addEventListener("submit", async (e) => {
     }
     if (loggedInUser.success) {
       failureAlert.classList.add("visually-hidden");
-      localStorage.setItem("x-auth-token", token);
+     localStorage.setItem("x-auth-token", token);
       window.location.href = "admin.html";
     } else {
       failureAlert.innerHTML = loggedInUser.message;

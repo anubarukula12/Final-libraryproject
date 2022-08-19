@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
-    <script src="/jsfiles/userScript.js" defer></script>
+    <script src="/jsfiles/loginScript.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -30,6 +30,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
+    <script src="/jsfiles/bookScript.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -67,7 +68,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
-    <script src="/jsfiles/userScript.js" defer></script>
+    <script src="/jsfiles/bookScript.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -105,7 +106,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/userbooks">ViewBooks</a>
+                        <a class="nav-link active" aria-current="page" href="/books">ViewBooks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="mybooks.html">MyBooks</a>
@@ -118,8 +119,43 @@
             </div>
         </div>
     </nav>
-    <main class='d-flex flex-column align-items-center ' id="image-books">
-        <div id="root"></div>
+    <div id="header"></div>
+    <main class='d-flex flex-column align-items-center' id="image-books">
+        <table class="table mt-4 table-fluid" id="myTable">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%booksList.forEach(book=> {%>
+                    <tr>
+                        <th scope="row">
+                            <%= book.bookid %>
+                        </th>
+                        <td>
+                            <%= book.bookname %>
+                        </td>
+                        <td>
+                            <%= book.genre %>
+                        </td>
+                        <td>
+                            $<%= book.price %>
+                        </td>
+                    </tr>
+                    <%})%>
+            </tbody>
+        </table>
+    </main>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+    </br>
     </main>
 </body>
 <!-- Footer -->

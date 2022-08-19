@@ -16,7 +16,7 @@ app.use(cors());
 const mongoose = require("mongoose");
 // connect to mongodb
 const uri =
-  "mongodb+srv://anu:anu@cluster0.lszyg.mongodb.net/marketTables?retryWrites=true&w=majority";
+  "mongodb+srv://anu:anu@cluster0.lszyg.mongodb.net/libraryTables?retryWrites=true&w=majority";
 const options = { useNewUrlParser: true, UseUnifiedTopology: true };
 
 // @ts-ignore
@@ -45,6 +45,9 @@ app.get("/register.html", (req, res) => {
 app.get("/studentlogin.html", (req, res) => {
   res.sendFile(__dirname + "/studentlogin.html");
 });
+app.get("/adminlogin.html", (req, res) => {
+  res.sendFile(__dirname + "/adminlogin.html");
+});
 app.get("/admin.html", (req, res) => {
   res.sendFile(__dirname + "/admin.html");
 });
@@ -60,17 +63,22 @@ app.get("/user.html", (req, res) => {
 app.get("/viewbooks.html", (req, res) => {
   res.sendFile(__dirname + "/viewbooks.html");
 });
-app.get("/adminlogin.html", (req, res) => {
-  res.sendFile(__dirname + "/adminlogin.html");
+
+app.get("/mybooks.html", (req, res) => {
+  res.sendFile(__dirname + "/mybooks.html");
 });
 const registerUserModel = require("./models/registeruser.model");
 const registerBookModel = require("./models/registerbook.model");
 const issueBookModel = require("./models/issuebook.model");
+const returnBookModel = require("./models/returnbook.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const users = "/users";
 const books = "/books";
 const issue = "/issue";
+const userbooks = "/userbooks";
+const userprofile = "/userprofile";
+const returnb = "/returnb";
 app.post(`${users}/register`, async (req, res) => {
   try {
     // route to handle the create users
@@ -122,25 +130,56 @@ app.post(`${users}/register`, async (req, res) => {
   }
 });
 
-// app.get(`${usersSlug}/:_id`, async (req, res) => {
-//   try {
-//     // extract uri params
-//     const { _id } = req.params;
-//     // interact with database
-//     const user = await UserModel.findById({ _id });
-//     // close the request response cycle
-//     res.send(user);
-//   } catch (error) {
-//     // handle errors and exceptions
-//     const errorString = `error getting users ${error.message}`;
-//     console.error(errorString);
-//     res.status(500).send(errorString);
-//   }
-// });
+app.get(`${users}/userprofile/:email`, async (req, res) => {
+  try {
+    // extract uri params
+    console.log("hi", req.params.email);
+    //  const ObjectId = require("mongodb").ObjectId;
+    //   const id = ObjectId(req.params.id);
+    const user = await registerUserModel.findOne({ email: req.params.email });
+
+    console.log(user);
+    // close the request response cycle
+    res.send(user);
+  } catch (error) {
+    // handle errors and exceptions
+    const errorString = `error getting users ${error.message}`;
+    console.error(errorString);
+    res.status(500).send(errorString);
+  }
+});
+app.get(`${users}/bookprofile/:email`, async (req, res) => {
+  try {
+    // extract uri params
+    console.log("hi in book profile", req.params.email);
+    //  const ObjectId = require("mongodb").ObjectId;
+    //   const id = ObjectId(req.params.id);
+    const useremail = req.params.email;
+
+    console.log(useremail);
+    const booklist = await issueBookModel.findOne({ useremail: useremail });
+
+    console.log(booklist);
+    // close the request response cycle
+    res.send(booklist);
+  } catch (error) {
+    // handle errors and exceptions
+    const errorString = `error getting users ${error.message}`;
+    console.error(errorString);
+    res.status(500).send(errorString);
+  }
+});
 app.get("/books", (req, res) => {
   registerBookModel.find({}, function (err, books) {
     res.render("viewbooks", {
       booksList: books,
+    });
+  });
+});
+app.get("/userbooks", (req, res) => {
+  registerBookModel.find({}, function (err, userbooks) {
+    res.render("viewusersbooks", {
+      booksList: userbooks,
     });
   });
 });
@@ -184,7 +223,7 @@ app.post(`${users}/studentlogin`, async (req, res) => {
     );
 
     res
-      .header("x-auth-token", [token, user._id, user.role])
+      .header("x-auth-token", [token, user.email, user.role])
       .send({ success: true, message: "login successful" });
   } catch (error) {
     // handle errors and exceptions
@@ -258,17 +297,62 @@ app.post(`${issue}/books`, async (req, res) => {
     // route to handle the create users
 
     // extract request parameters
+
     const { bookid, useremail, period, date } = req.body;
     console.log(bookid, useremail, period, date);
+
+    const bookdetails = await registerBookModel.findOne({ bookid: bookid });
+    console.log("bookdetails", bookdetails.bookid);
+    const bookname = bookdetails.bookname;
+    const genre = bookdetails.genre;
+    const price = bookdetails.price;
+
+    await registerBookModel.findOneAndDelete(bookid);
     const newUserObject = {
       bookid,
+      bookname,
+      genre,
+      price,
       useremail,
       period,
       date,
     };
-
-    await registerBookModel.findOneAndDelete(bookid);
     const newUser = new issueBookModel(newUserObject);
+
+    await newUser.save();
+
+    res.send({ success: true, message: "Registered successful" });
+  } catch (error) {
+    console.error("create user error: ", error.message);
+    res.status(500).send(`error while creating user. ${error.message}`);
+  }
+});
+app.post(`${returnb}/issuedbooks`, async (req, res) => {
+  try {
+    // route to handle the create users
+
+    // extract request parameters
+    const { bookid, useremail, date } = req.body;
+    console.log(bookid, useremail, date);
+    const bookdetails = await issueBookModel.findOne({ bookid: bookid });
+    console.log(bookdetails);
+    const issuebookobject = {
+      bookid: bookdetails.bookid,
+      bookname: bookdetails.bookname,
+      genre: bookdetails.genre,
+      price: bookdetails.price,
+    };
+    const bookUser = new registerBookModel(issuebookobject);
+    await bookUser.save();
+    const newUserObject = {
+      bookid,
+      useremail,
+      date,
+    };
+
+    await issueBookModel.findOneAndDelete(bookid);
+
+    const newUser = new returnBookModel(newUserObject);
 
     await newUser.save();
 
